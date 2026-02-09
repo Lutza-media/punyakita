@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jejak Kenangan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variabel Warna */
+        :root {
+            --army-green: #4B5320;
+            --dark-blue: #002366;
+            --cream: #f4f4f4;
+            --text-light: #ffffff;
+            --shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        body {
+            background-color: var(--cream);
+            color: var(--dark-blue);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(75, 83, 32, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 35, 102, 0.05) 0%, transparent 20%);
+        }
+
+        /* Header */
+        header {
+            height: 60vh;
+            background: linear-gradient(rgba(75, 83, 32, 0.85), rgba(0, 35, 102, 0.85)),
+                        url('https://images.unsplash.com/photo-1527529482837-4698179dc6ce?q=80&w=1950&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--text-light);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            z-index: 1;
+        }
+
+        header h1 {
+            font-size: 4.5rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 2;
+            font-weight: 700;
+            background: linear-gradient(to right, #f8f4e6, #e6e0c0, #f8f4e6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-stroke: 0.5px var(--army-green);
+        }
+
+        header p {
+            font-style: italic;
+            font-size: 1.4rem;
+            max-width: 700px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Gallery Section */
+        .container {
+            max-width: 1100px;
+            margin: -60px auto 50px auto;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.2rem;
+            color: var(--army-green);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70%;
+            height: 3px;
+            background: var(--dark-blue);
+            border-radius: 3px;
+        }
+
+        .memory-item {
+            background: white;
+            margin-bottom: 50px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(75, 83, 32, 0.2);
+            transition: var(--transition);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .memory-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .img-container {
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            background: linear-gradient(45deg, var(--army-green), #6b7d3a);
+            position: relative;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+            display: block;
+            cursor: pointer;
+        }
+
+        .memory-item:hover .img-container img {
+            transform: scale(1.05);
+        }
+
+        .img-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 35, 102, 0.85);
+            color: white;
+            padding: 15px 20px;
+            transform: translateY(100%);
+            transition: var(--transition);
+            z-index: 10;
+            border-top: 3px solid var(--army-green);
+        }
+
+        .memory-item:hover .img-overlay {
+            transform: translateY(0);
+        }
+
+        .img-overlay h3 {
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .img-overlay h3 i {
+            margin-right: 10px;
+            color: var(--army-green);
+        }
+
+        .img-overlay p {
+            font-style: italic;
+            opacity: 0.9;
+            font-size: 1.05rem;
+            line-height: 1.5;
+        }
+
+        .description {
+            padding: 25px;
+            background: white;
+            border-top: 3px solid var(--army-green);
+        }
+
+        .description h3 {
+            color: var(--dark-blue);
+            margin-bottom: 12px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .description h3 i {
+            margin-right: 12px;
+            color: var(--army-green);
+        }
+
+        .description p {
+            line-height: 1.7;
+            color: #333;
+            font-size: 1.15rem;
+        }
+
+        /* Related Photos Gallery - Inline */
+        .related-gallery {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s ease-out, padding 0.6s ease;
+            background: linear-gradient(to bottom, #f8f6f0, #f0ebe0);
+            padding: 0 20px;
+        }
+
+        .related-gallery.active {
+            max-height: 1000px;
+            padding: 25px 20px;
+        }
+
+        .gallery-title {
+            text-align: center;
+            color: var(--dark-blue);
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .gallery-title i {
+            color: var(--army-green);
+        }
+
+        .related-photos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .related-gallery.active .related-photos-grid {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .related-photo-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 180px;
+            position: relative;
+            cursor: pointer;
+            background: var(--army-green);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .related-photo-item:nth-child(1) { animation-delay: 0.1s; }
+        .related-photo-item:nth-child(2) { animation-delay: 0.2s; }
+        .related-photo-item:nth-child(3) { animation-delay: 0.3s; }
+        .related-photo-item:nth-child(4) { animation-delay: 0.4s; }
+        .related-photo-item:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .related-photo-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .related-photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .related-photo-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .photo-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 35, 102, 0.85);
+            color: white;
+            padding: 10px;
+            font-size: 0.95rem;
+            text-align: center;
+            transform: translateY(100%);
+            transition: var(--transition);
+            font-style: italic;
+        }
+
+        .related-photo-item:hover .photo-caption {
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 35px;
+            background: linear-gradient(to right, var(--army-green), #3a4218);
+            color: white;
+            margin-top: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            z-index: 1;
+        }
+
+        footer p {
+            position: relative;
+            z-index: 2;
+            font-size: 1.15rem;
+            letter-spacing: 1px;
+        }
+
+        .copyright {
+            display: block;
+            margin-top: 8px;
+            opacity: 0.85;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .related-photos-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+            
+            .related-photo-item {
+                height: 160px;
+            }
+            
+            header h1 {
+                font-size: 3.5rem;
+            }
+            
+            header p {
+                font-size: 1.25rem;
+            }
+            
+            .img-container {
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.8rem;
+            }
+            
+            header p {
+                font-size: 1.15rem;
+                padding: 0 15px;
+            }
+            
+            .img-container {
+                height: 350px;
+            }
+            
+            .description {
+                padding: 20px;
+            }
+            
+            .description h3 {
+                font-size: 1.6rem;
+            }
+            
+            .description p {
+                font-size: 1.05rem;
+            }
+            
+            .related-photos-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .related-photo-item {
+                height: 140px;
+            }
+            
+            .gallery-title {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                height: 50vh;
+            }
+            
+            header h1 {
+                font-size: 2.3rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .img-container {
+                height: 280px;
+            }
+            
+            .related-photos-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .related-photo-item {
+                height: 120px;
+            }
+            
+            .gallery-title {
+                font-size: 1.3rem;
+            }
+            
+            .photo-caption {
+                font-size: 0.85rem;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Jejak</h1>
+        <p>"Setiap foto menyimpan cerita, dan setiap sentuhan membuka kenangan yang tersembunyi."</p>
+    </header>
+
+    <div class="container">
+        <h2 class="section-title"></h2>
+        
+        <div class="memory-item">
+            <div class="img-container" onclick="toggleGallery(this)">
+                <img src="img/b1.jpeg" alt="Kenangan Bukber">
+                <div class="img-overlay">
+                    <h3><i class="fas fa-utensils"></i>bukber</h3>
+                    <p>Maret 2025 - Sentuh untuk melihat lebih banyak kenangan</p>
+                </div>
+            </div>
+            <div class="description">
+                <h3><i class="far fa-calendar-alt"></i>Maret 2025</h3>
+                <p>Beberapa kali di hadapkan dengan PK, PM, dan beberapa soal per UTBK
+                    an maka kami
+                    memutuskan mengistirahatkan diri sejenak</p>
+            </div>
+            <div class="related-gallery">
+                <div class="gallery-title">
+                    <i class="fas fa-images"></i>
+                    <span>Foto-foto Terkait</span>
+                    <i class="fas fa-images"></i>
+                </div>
+                <div class="related-photos-grid">
+                    <div class="related-photo-item">
+                        <img src="img/b2.jpeg" alt="Momen kebersamaan">
+                        <div class="photo-caption">foto pose GO rek</div>
+                    </div>
+                    <div class="related-photo-item">
+                        <img src="img/b3.jpeg" alt="Suasana restoran">
+                        <div class="photo-caption">foto ngene rek</div>
+                    </div>
+                    <div class="related-photo-item">
+                        <img src="img/b4.jpeg" alt="Obrolan panjang">
+                        <div class="photo-caption">nunjuk rek</div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="memory-item">
+            <div class="img-container" onclick="toggleGallery(this)">
+                <img src="img/c5.jpeg" alt="Kenangan Perjalanan">
+                <div class="img-overlay">
+                    <h3><i class="fas fa-shoe-prints"></i> Menikmati liburan </h3>
+                    <p>April 2025 - Sentuh untuk melihat lebih banyak kenangan</p>
+                </div>
+            </div>
+            <div class="description">
+                <h3><i class="far fa-calendar-alt"></i> 30 April 2025</h3>
+                <p>Langit berwarna oranye dan biru tua. Kita berjalan menyusuri gang kecil ini sambil merencanakan masa depan yang penuh mimpi. Setiap langkah membawa harapan baru, dan setiap tawa mengukir kenangan yang tak terlupakan.</p>
+            </div>
+            <div class="related-gallery">
+                <div class="gallery-title">
+                    <i class="fas fa-images"></i>
+                    <span>Foto-foto Terkait</span>
+                    <i class="fas fa-images"></i>
+                </div>
+                <div class="related-photos-grid">
+                    <div class="related-photo-item">
+                        <img src="img/c1.jpeg" alt="Jalanan kecil">
+                        <div class="photo-caption">gada yg cowo part1</div>
+                    </div>
+                    <div class="related-photo-item">
+                        <img src="img/c2.jpeg" alt="Matahari terbenam">
+                        <div class="photo-caption">gada yang cowo part2</div>
+                    </div>
+                    <div class="related-photo-item">
+                        <img src="img/c3.jpeg" alt="Jejak langkah">
+                        <div class="photo-caption">konsep e jamur dan peri</div>
+                    </div>
+                    <div class="related-photo-item">
+                        <img src="img/c4.jpeg" alt="Kota bercahaya">
+                        <div class="photo-caption">peri dan jamur</div>
+                    </div>
+                    <div class="related-photo-item">
+                        <img src="img/c6.jpeg" alt="Siluet berdua">
+                        <div class="photo-caption">tebak siapa yang pulang</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="memory-item">
+            <div class="img-container" onclick="toggleGallery(this)">
+                <img src="img/s1.jpeg" alt="Kenangan Kopi">
+                <div class="img-overlay">
+                    <h3><i class="fas fa-mug-hot"></i> berbagi warna universitas </h3>
+                    <p>Januari 2026 - Sentuh untuk melihat lebih banyak kenangan</p>
+                </div>
+            </div>
+            <div class="description">
+                <h3><i class="far fa-calendar-alt"></i> Januari 2026</h3>
+                <p>
+                    intinya temu alumni SMAN 5 JEMBER.</p>
+            </div>
+            <div class="related-gallery">
+                <div class="gallery-title">
+                    <i class="fas fa-images"></i>
+                    <span>Foto-foto Terkait</span>
+                    <i class="fas fa-images"></i>
+                </div>
+                <div class="related-photos-grid">
+                    <div class="related-photo-item">
+                        <img src="img/s2.jpeg" alt="Sudut favorit">
+                        <div class="photo-caption">tebak</div>
+                    </div>
+                    <div class="related-photo-item">
+                        <img src="img/s3.jpeg" alt="Secangkir kopi">
+                        <div class="photo-caption">siapa </div>
+                    </div>
+                    <div class="related-photo-item">
+                        <img src="img/s4.jpeg" alt="Buku dan catatan">
+                        <div class="photo-caption">yang</div>
+                    </div>
+                    <div class="related-photo-item">
+                        <img src="img/s5.jpeg" alt="Momen santai">
+                        <div class="photo-caption">ga ada</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="memory-item">
+            <div class="img-container" onclick="toggleGallery(this)">
+                <img src="img/a1.jpeg" alt="Kenangan Perjalanan">
+                <div class="img-overlay">
+                    <h3><i class="fas fa-mountain"></i> Petualangan Akhir Pekan</h3>
+                    <p>Januari 2026 - Sentuh untuk melihat lebih banyak kenangan</p>
+                </div>
+            </div>
+            <div class="description">
+                <h3><i class="far fa-calendar-alt"></i> Januari 2026</h3>
+                <p>Meninggalkan rutinitas sejenak untuk menemukan kedamaian di alam. Setiap langkah di
+                    pegunungan mengajarkan arti kesabaran, dan setiap pemandangan mengingatkan betapa indahnya
+                    hidup ini ketika dinikmati bersama orang-orang keren.</p>
+            </div>
+            <div class="related-gallery">
+                <div class="gallery-title">
+                    <i class="fas fa-images"></i>
+                    <span>Foto-foto Terkait</span>
+                    <i class="fas fa-images"></i>
+                </div>
+                <div class="related-photos-grid">
+                    <div class="related-photo-item">
+                        <img src="img/a2.jpeg" alt="Puncak gunung">
+                        <div class="photo-caption">lucu 1</div>
+                    </div>
+                    <div class="related-photo-item">
+                        <img src="img/a3.jpeg" alt="Perjalanan mendaki">
+                        <div class="photo-caption">lucu 2</div>
+                    </div>
+                    <div class="related-photo-item">
+                        <img src="img/a4.jpeg" alt="Kemah">
+                        <div class="photo-caption">lucu 3</div>
+                    </div>
+                    <div class="related-photo-item">
+                        <img src="img/a5.jpeg" alt="Matahari terbit">
+                        <div class="photo-caption">3 pilar beda kampus</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Jejak Kenangan <span class="copyright">&copy; 2026 Dibuat dengan cinta dan kenangan. Semua hak cipta disimpan.</span></p>
+    </footer>
+
+    <script>
+        function toggleGallery(element) {
+            // Cari parent memory-item
+            const memoryItem = element.closest('.memory-item');
+            
+            // Cari related-gallery di dalam memory-item
+            const relatedGallery = memoryItem.querySelector('.related-gallery');
+            
+            // Toggle class active
+            relatedGallery.classList.toggle('active');
+            
+            // Rotasi overlay text untuk feedback visual
+            const overlay = element.querySelector('.img-overlay p');
+            if (relatedGallery.classList.contains('active')) {
+                overlay.textContent = 'Klik lagi untuk menutup galeri';
+            } else {
+                overlay.textContent = 'Sentuh untuk melihat lebih banyak kenangan';
+            }
+            
+            // Opsional: Tutup galeri lain jika ingin hanya satu yang terbuka
+            document.querySelectorAll('.related-gallery').forEach(gallery => {
+                if (gallery !== relatedGallery && gallery.classList.contains('active')) {
+                    gallery.classList.remove('active');
+                    // Reset text overlay di item lain
+                    const otherItem = gallery.closest('.memory-item');
+                    const otherOverlay = otherItem.querySelector('.img-overlay p');
+                    otherOverlay.textContent = 'Sentuh untuk melihat lebih banyak kenangan';
+                }
+            });
+        }
+        
+        // Menambahkan event listener untuk mobile touch
+        document.addEventListener('DOMContentLoaded', function() {
+            const imgContainers = document.querySelectorAll('.img-container');
+            
+            imgContainers.forEach(container => {
+                container.addEventListener('touchstart', function(e) {
+                    // Mencegah double-tap zoom di mobile
+                    e.preventDefault();
+                    toggleGallery(this);
+                }, { passive: false });
+            });
+        });
+    </script>
+</body>
+</html>
